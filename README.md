@@ -6,7 +6,7 @@ A lightweight, modern single-page weather web application featuring live canvas 
 
 | Dynamic Weather View | Detailed Forecast & Metrics |
 | :---: | :---: |
-| ![Weather Preview 1](Screenshot%201.png) | ![Weather Preview 2](Screenshot%202.png) |
+| ![Weather Preview 1](Screenshots/Screenshot%201.png) | ![Weather Preview 2](Screenshots/Screenshot%202.png) |
 
 ## Key Features
 
