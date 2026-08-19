@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Skyline — Weather</title>
+<meta name="theme-color" content="#0B1026" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400..700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <canvas id="sky" aria-hidden="true"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <div class="app" id="app">
+
+    <!-- ============ HEADER ============ -->
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" id="brandIcon"></span>
+        <span class="brand-name">Skyline</span>
+      </div>
+
+      <div class="search-wrap">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none"><path d="M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z" stroke="currentColor" stroke-width="2"/><path d="m21 21-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="searchInput" class="search-box" type="text" autocomplete="off" spellcheck="false" placeholder="Search a city or place…" aria-label="Search location" />
+        <button id="locBtn" class="icon-btn" title="Use current location" aria-label="Use current location">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="6" stroke="currentColor" stroke-width="2"/></svg>
+        </button>
+        <ul id="suggestions" class="suggestions" hidden></ul>
+      </div>
+
+      <div class="topbar-actions">
+        <button id="unitToggle" class="unit-toggle" aria-label="Toggle temperature unit">
+          <span class="unit active" data-unit="c">°C</span><span class="unit" data-unit="f">°F</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ============ SAVED PLACES ============ -->
+    <nav class="chips" id="savedChips" aria-label="Saved locations"></nav>
+
+    <!-- ============ MAIN ============ -->
+    <main id="main" class="main">
+
+      <!-- loading -->
+      <div id="loadingState" class="state-panel" hidden>
+        <div class="spinner"></div>
+        <p>Reading the sky…</p>
+      </div>
+
+      <!-- error -->
+      <div id="errorState" class="state-panel" hidden>
+        <p id="errorMsg">Couldn't find that place.</p>
+        <button id="retryBtn" class="ghost-btn">Try again</button>
+      </div>
+
+      <!-- content -->
+      <section id="content" class="content" hidden>
+
+        <section class="hero">
+          <div class="hero-left">
+            <div class="place-row">
+              <h1 id="cityName" class="city-name">—</h1>
+              <button id="saveBtn" class="save-btn" title="Save location" aria-label="Save location">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7.5-4.6-10-9.1C.5 8.1 2.7 4 6.6 4c2 0 3.6 1.1 4.4 2.5C11.8 5.1 13.4 4 15.4 4c3.9 0 6.1 4.1 4.6 7.9C19.5 16.4 12 21 12 21Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+            <p id="dateLine" class="date-line">—</p>
+            <p id="condLine" class="cond-line">
+              <span id="condIcon" class="cond-icon" aria-hidden="true"></span>
+              <span id="condText">—</span>
+            </p>
+          </div>
+
+          <div class="hero-right">
+            <div class="temp-wrap">
+              <span id="tempMain" class="temp-main">--</span><span class="deg">°</span>
+            </div>
+            <p id="feelsLike" class="feels-like">Feels like --°</p>
+            <p id="hiLow" class="hi-low">H: --°  L: --°</p>
+          </div>
+        </section>
+
+        <!-- hourly strip -->
+        <section class="panel hourly-panel">
+          <h2 class="panel-title">Next 24 hours</h2>
+          <div id="hourlyStrip" class="hourly-strip"></div>
+        </section>
+
+        <!-- details grid -->
+        <section class="panel">
+          <h2 class="panel-title">Conditions</h2>
+          <div id="detailsGrid" class="details-grid"></div>
+        </section>
+
+        <!-- daily forecast -->
+        <section class="panel">
+          <h2 class="panel-title">7-day forecast</h2>
+          <div id="dailyList" class="daily-list"></div>
+        </section>
+
+        <footer class="footer">
+          <span>Data by Open-Meteo</span>
+          <span id="updatedAt"></span>
+        </footer>
+
+      </section>
+    </main>
+  </div>
+
+<script src="app.js"></script>
+</body>
+</html>
